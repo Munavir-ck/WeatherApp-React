@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { LocationContext } from "./context/Context";
 import Select from "react-select";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Search() {
   const { setCoordinates, setLocation } = useContext(LocationContext);
@@ -54,39 +55,44 @@ function Search() {
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isSelected ? "lightblue" : "white",
+      backgroundColor: state.isSelected
+        ? "grey"
+        : "transparent",
       color: state.isSelected ? "white" : "black",
       "&:hover": {
         backgroundColor: "lightblue",
         color: "white",
       },
+      // Adjust the width as per your requirements
     }),
     menu: (provided, state) => ({
       ...provided,
       borderRadius: "8px",
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+
+      height: "auto",
     }),
     menuList: (provided, state) => ({
       ...provided,
       padding: "8px",
+
+      maxHeight: "none",
     }),
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search for a location"
-        onChange={handleChange}
-        style={{
-          padding: "10px",
-          borderRadius: "8px",
-          border: "1px solid gray",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          fontSize: "16px",
-          outline: "none",
-        }}
-      />
+    <div onClick={() => setMenu(false)}>
+      <div>
+        <input
+          style={{ width: "100" }}
+          onChange={handleChange}
+          type="search"
+          className="form-control rounded"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon"
+        />
+      </div>
       <Select
         options={options}
         onChange={handleSelectChange}

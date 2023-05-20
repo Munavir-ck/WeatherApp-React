@@ -10,14 +10,15 @@ function WeatherCard() {
   const [temp, setTemp] = useState(null);
   const[weather,setWeather]=useState("")
 
-  console.log(location, "locaaaaaations");
+  console.log( process.env.REACT_APP_OPENWEATHER_API_KEY, "locaaaaaations");
 
   useEffect(() => {
     getWeather();
   }, [coordinates]);
 
   async function getWeather(params) {
-    const apiKey = "84e34f212e1cc26092cbcf7260a13eee";
+    const apiKey =   process.env.REACT_APP_OPENWEATHER_API_KEY
+   
 
     const result = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates[1]}&lon=${coordinates[0]}&appid=${apiKey}`

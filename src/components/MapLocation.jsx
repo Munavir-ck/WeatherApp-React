@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const Map = ReactMapboxGl({
   accessToken:
-    'pk.eyJ1IjoibXVuYXZpciIsImEiOiJjbGh1anVxNDYwMGV6M3BwNnF0am1qM20yIn0.sZxp825ISIc9Wp4VuILI2A'
+  process.env.REACT_APP_MAPBOX_API_KEY
 });
  
 
@@ -29,7 +29,7 @@ if (navigator.geolocation) {
       setCoordinates([longitude,latitude])
 
       const response = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?key=cd7e28d203e64969a0a2dc20653cdaae&q=${latitude}+${longitude}`
+        `https://api.opencagedata.com/geocode/v1/json?key= ${process.env.REACT_APP_OPENWEATHER_API_KEY}&q=${latitude}+${longitude}`
       ).then((res)=>{
        
         setLocation(res.data.results[0].formatted)
@@ -48,23 +48,20 @@ if (navigator.geolocation) {
 
  
   return (
-    <div>
-    
-    <div>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+   <div style={{ width: "50vw", border: "1px solid black" }}>
       <Map
         style="mapbox://styles/mapbox/streets-v9"
         containerStyle={{
-          height: '70vh',
-          width: '100vw'
+          height: "70vh",
+          width: "100%" // Adjust the width as needed
         }}
-        center={coordinates} // Pass the coordinates as the center prop of the Map component
+        center={coordinates}
       >
-        <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-          <Feature coordinates={coordinates} />
-        </Layer>
+        {/* Rest of your Map component code */}
       </Map>
     </div>
-    </div>
+  </div>
   )
 }
 
